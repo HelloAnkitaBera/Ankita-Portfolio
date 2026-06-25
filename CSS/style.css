@@ -51,28 +51,26 @@ body {
    ========================================== */
 header {
     position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1200px;
+    top: 0;
+    left: 0;
+    width: 100%;
     z-index: 100;
-    border-radius: 50px;
-    border: 2px solid transparent;
-    background: linear-gradient(var(--nav-bg), var(--nav-bg)) padding-box,
-                linear-gradient(135deg, var(--accent-cyan), #0ea5e9, #ff007f) border-box;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px var(--nav-shadow);
+    background: var(--nav-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid;
+    border-image: linear-gradient(135deg, var(--accent-cyan), #0ea5e9, #ff007f) 1;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), 0 0 15px var(--nav-shadow);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 header.scrolled {
-    top: 10px;
-    width: 95%;
-    background: linear-gradient(rgba(224, 242, 254, 0.95), rgba(224, 242, 254, 0.95)) padding-box,
-                linear-gradient(135deg, var(--accent-cyan), #0ea5e9, #ff007f) border-box;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(14, 165, 233, 0.2);
+    background: rgba(224, 242, 254, 0.95);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 25px rgba(14, 165, 233, 0.2);
+}
+
+header.scrolled .navbar {
+    padding: 12px 10%;
 }
 
 .navbar {
@@ -89,7 +87,7 @@ header.scrolled {
     font-size: 2.2rem;
     font-weight: 800;
     letter-spacing: 0.5px;
-    background: linear-gradient(45deg, var(--nav-text), var(--nav-hover));
+    background: linear-gradient(45deg, #1e3a8a, #7928ca, #ff007f);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -98,7 +96,7 @@ header.scrolled {
 }
 
 .logo:hover {
-    filter: drop-shadow(0 0 8px rgba(30, 58, 138, 0.4));
+    filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.5));
 }
 
 /* Nav links styling */
