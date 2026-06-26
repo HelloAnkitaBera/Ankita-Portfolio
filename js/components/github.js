@@ -72,6 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
         let activeDates = new Set();
         let fetchedContributions = null;
         let selectedYear = 2026; // Default to 2026
+        let liveContributions = {}; // Real-time contributions from GitHub events API
+
+        // Helper to get local date string YYYY-MM-DD
+        function getLocalDateString(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
 
         async function loadGitHubStats() {
             // Try to load cached data first to prevent flicker or API limit issues
@@ -108,11 +117,55 @@ document.addEventListener("DOMContentLoaded", () => {
                     repos = await reposResponse.json();
                 }
 
-                // Populate activeDates set
+                // Populate activeDates set and record live contributions
                 if (repos.length > 0) {
                     repos.forEach(repo => {
                         if (repo.updated_at) activeDates.add(repo.updated_at.split("T")[0]);
-                        if (repo.pushed_at) activeDates.add(repo.pushed_at.split("T")[0]);
+                        if (repo.pushed_at) {
+                            const utcPushDate = repo.pushed_at.split("T")[0];
+                            activeDates.add(utcPushDate);
+                            
+                            // Map repository push date as a local timezone contribution
+                            const localPushDate = new Date(repo.pushed_at);
+                            const localPushDateStr = getLocalDateString(localPushDate);
+                            if (!liveContributions[localPushDateStr]) {
+                                liveContributions[localPushDateStr] = 1;
+                            }
+                        }
+                    });
+                }
+
+                // Fetch Live Events (real-time contribution fallback)
+                let liveEvents = [];
+                try {
+                    const eventsResponse = await fetch(`https://api.github.com/users/${DEFAULT_USERNAME}/events`);
+                    if (eventsResponse.ok) {
+                        liveEvents = await eventsResponse.json();
+                    }
+                } catch (eventsError) {
+                    console.error("Error fetching live events:", eventsError);
+                }
+
+                // Parse event list and record contributions by local timezone date
+                if (Array.isArray(liveEvents)) {
+                    liveEvents.forEach(event => {
+                        const contributionTypes = [
+                            "PushEvent",
+                            "PullRequestEvent",
+                            "IssuesEvent",
+                            "IssueCommentEvent",
+                            "PullRequestReviewEvent",
+                            "PullRequestReviewCommentEvent"
+                        ];
+                        if (contributionTypes.includes(event.type) && event.created_at) {
+                            const eventDate = new Date(event.created_at);
+                            const dateStr = getLocalDateString(eventDate);
+                            liveContributions[dateStr] = (liveContributions[dateStr] || 0) + 1;
+                        } else if (event.type === "CreateEvent" && event.payload && event.payload.ref_type === "repository" && event.created_at) {
+                            const eventDate = new Date(event.created_at);
+                            const dateStr = getLocalDateString(eventDate);
+                            liveContributions[dateStr] = (liveContributions[dateStr] || 0) + 1;
+                        }
                     });
                 }
 
@@ -181,18 +234,10 @@ document.addEventListener("DOMContentLoaded", () => {
             
             contributionGrid.innerHTML = "";
             contributionGrid.style.gridAutoFlow = "column";
-
+            
             // Map API contribution records
             const contribMap = new Map();
             let totalCommitsForYear = 0;
-
-            // Helper to get local date string YYYY-MM-DD
-            function getLocalDateString(date) {
-                const y = date.getFullYear();
-                const m = String(date.getMonth() + 1).padStart(2, '0');
-                const d = String(date.getDate()).padStart(2, '0');
-                return `${y}-${m}-${d}`;
-            }
 
             // Helper to map commit counts to GitHub levels
             function getLevelForCount(count) {
@@ -223,6 +268,22 @@ document.addEventListener("DOMContentLoaded", () => {
                         contribMap.set(dateStr, { count: mergedCount, level: getLevelForCount(mergedCount) });
                     } else {
                         contribMap.set(dateStr, supData);
+                    }
+                });
+            }
+
+            // 2.5. Merge with live contributions (taking the maximum to avoid double-counting)
+            if (liveContributions) {
+                Object.keys(liveContributions).forEach(dateStr => {
+                    if (dateStr.startsWith(year.toString())) {
+                        const liveCount = liveContributions[dateStr];
+                        if (contribMap.has(dateStr)) {
+                            const current = contribMap.get(dateStr);
+                            const mergedCount = Math.max(current.count, liveCount);
+                            contribMap.set(dateStr, { count: mergedCount, level: getLevelForCount(mergedCount) });
+                        } else {
+                            contribMap.set(dateStr, { count: liveCount, level: getLevelForCount(liveCount) });
+                        }
                     }
                 });
             }

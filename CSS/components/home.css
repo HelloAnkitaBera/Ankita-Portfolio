@@ -273,17 +273,6 @@
     transform: translateY(-3px);
 }
 
-.btn-outline {
-    background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
-                linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)) border-box;
-    color: var(--text-light);
-}
-
-.btn-outline:hover {
-    background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
-                linear-gradient(135deg, var(--accent-cyan), #0ea5e9) border-box;
-    box-shadow: 0 8px 25px rgba(0, 229, 255, 0.15);
-}
 
 /* ==========================================
    SCROLL DOWN MOUSE INDICATOR
