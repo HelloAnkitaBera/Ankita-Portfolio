@@ -213,6 +213,7 @@ header.scrolled .navbar {
     margin: 10px 0;
     background: linear-gradient(135deg, var(--accent-cyan), #0ea5e9, #ff007f);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.25));
     transition: filter 0.3s ease;
@@ -278,10 +279,6 @@ header.scrolled .navbar {
 
 .btn:hover svg {
     transform: translateY(3px);
-}
-
-.btn-outline {
-    /* Inherits btn styles */
 }
 
 .btn-outline:hover {
