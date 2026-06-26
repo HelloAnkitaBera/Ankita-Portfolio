@@ -58,15 +58,21 @@
 
 .home-title {
     font-family: var(--font-heading);
-    font-size: 5.6rem;
+    font-size: 6.5rem;
     font-weight: 800;
     line-height: 1.1;
-    letter-spacing: -2px;
-    background: linear-gradient(to right, #ffffff 30%, #94a3b8 70%);
+    margin-bottom: 25px;
+    background: linear-gradient(135deg, var(--accent-cyan) 10%, var(--accent-purple) 50%, var(--accent-pink) 90%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 25px;
+    filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.1));
+    transition: all 0.4s ease;
+}
+
+.home-title:hover {
+    filter: drop-shadow(0 0 35px rgba(0, 229, 255, 0.3)) drop-shadow(0 0 45px rgba(255, 0, 127, 0.25));
+    transform: scale(1.02);
 }
 
 .role-badge {
@@ -98,53 +104,63 @@
 
 /* 3D profile picture style */
 .home-img {
-    width: 320px;
-    height: 320px;
+    width: 200px;
+    height: 200px;
     position: relative;
     margin-bottom: 40px;
     perspective: 1000px;
     cursor: pointer;
+    animation: floatImage 6s ease-in-out infinite;
 }
 
 .profile-glow-ring {
     position: absolute;
-    top: -15px;
-    left: -15px;
-    width: 350px;
-    height: 350px;
+    top: -8px;
+    left: -8px;
+    width: 216px;
+    height: 216px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 70%);
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+    filter: blur(15px);
+    opacity: 0.7;
     z-index: 1;
-    animation: pulseGlowRing 4s infinite ease-in-out;
+    animation: rotateGlow 12s linear infinite;
 }
 
-@keyframes pulseGlowRing {
-    0%, 100% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.05); opacity: 1; }
+@keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes floatImage {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
 .img-box {
-    width: 320px;
-    height: 320px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    border: 3px solid transparent;
-    background: linear-gradient(135deg, var(--accent-cyan), #0ea5e9, #ff007f) border-box;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 229, 255, 0.2);
+    border: 4px solid var(--bg-dark);
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.2);
     transform-style: preserve-3d;
-    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    transition: transform 0.15s ease-out, box-shadow 0.5s ease;
     z-index: 2;
     position: relative;
 }
 
 .img-box:hover {
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 229, 255, 0.4), 0 0 25px rgba(255, 0, 127, 0.2);
+    box-shadow: 
+        0 0 35px var(--accent-glow-deep),
+        0 0 70px rgba(0, 229, 255, 0.4);
 }
 
 .img-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 15%;
     transform: translateZ(20px) scale(1.05);
     transition: transform 0.5s ease;
 }
@@ -217,8 +233,9 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 3px solid transparent;
+    background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+                linear-gradient(135deg, var(--accent-cyan), #0ea5e9, #ff007f) border-box;
     color: var(--text-gray);
     transition: all 0.3s ease;
 }
@@ -230,11 +247,28 @@
 }
 
 .home-socials a:hover {
-    color: var(--accent-cyan);
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 15px rgba(0, 229, 255, 0.25);
     transform: translateY(-4px);
-    background: rgba(0, 229, 255, 0.02);
+}
+
+.home-socials a[aria-label="LinkedIn"]:hover {
+    color: #0a66c2;
+    background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+                linear-gradient(135deg, #0a66c2, #0077b5) border-box;
+    box-shadow: 0 0 15px rgba(10, 102, 194, 0.35);
+}
+
+.home-socials a[aria-label="GitHub"]:hover {
+    color: #ffffff;
+    background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+                linear-gradient(135deg, #ffffff, #6e7681) border-box;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+}
+
+.home-socials a[aria-label="LeetCode"]:hover {
+    color: #ffa116;
+    background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+                linear-gradient(135deg, #ffa116, #f89f1b) border-box;
+    box-shadow: 0 0 15px rgba(255, 161, 22, 0.35);
 }
 
 /* Button Group (centered) */
@@ -345,18 +379,20 @@
     }
     
     .home-img {
-        width: 260px;
-        height: 260px;
+        width: 200px;
+        height: 200px;
     }
 
     .profile-glow-ring {
-        width: 280px;
-        height: 280px;
+        width: 216px;
+        height: 216px;
+        top: -8px;
+        left: -8px;
     }
     
     .img-box {
-        width: 260px;
-        height: 260px;
+        width: 200px;
+        height: 200px;
     }
     
     .home-btn-group {
