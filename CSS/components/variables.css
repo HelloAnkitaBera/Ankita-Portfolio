@@ -1,0 +1,32 @@
+/* ==========================================
+   DESIGN SYSTEM & VARIABLES
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* Color Palette */
+    --bg-dark: #030a10;
+    --bg-gradient: radial-gradient(circle at 50% 50%, #0d253f 0%, #030a10 100%);
+    
+    /* Navbar Theme (Sleek Dark Glass) */
+    --nav-bg: rgba(3, 10, 16, 0.7);
+    --nav-border: rgba(0, 229, 255, 0.15);
+    --nav-shadow: rgba(0, 229, 255, 0.05);
+    --nav-text: #e0f2fe;
+    --nav-hover: #00e5ff;
+    
+    /* Neon Accents (For Home content, buttons, image border) */
+    --accent-cyan: #00e5ff;
+    --accent-purple: #9d4edd;
+    --accent-pink: #ff007f;
+    --accent-glow: rgba(0, 229, 255, 0.35);
+    --accent-glow-deep: rgba(0, 229, 255, 0.6);
+    
+    /* Typography Colors */
+    --text-light: #ffffff;
+    --text-gray: #94a3b8;
+    
+    /* Fonts */
+    --font-primary: 'Plus Jakarta Sans', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+}

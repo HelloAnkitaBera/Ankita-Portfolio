@@ -1,0 +1,516 @@
+/* ==========================================
+   GITHUB STATS SECTION
+   ========================================== */
+.stats {
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 10% 80px 10%;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.stats-container {
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* Glass Dashboard Card */
+.github-dashboard-card {
+    background: rgba(3, 10, 16, 0.45);
+    border: 1px solid rgba(140, 74, 216, 0.15);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 
+                0 0 30px rgba(140, 74, 216, 0.05),
+                inset 0 0 15px rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    position: relative;
+}
+
+.github-dashboard-card::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8c4ad8, transparent);
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dashboard-github-icon {
+    width: 32px;
+    height: 32px;
+    fill: #8c4ad8;
+    filter: drop-shadow(0 0 8px rgba(140, 74, 216, 0.4));
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dashboard-username {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-light);
+    letter-spacing: -0.5px;
+}
+
+.dashboard-subtitle {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #8c4ad8;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-shadow: 0 0 10px rgba(140, 74, 216, 0.3);
+}
+
+.commits-count-large {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #8c4ad8;
+    line-height: 1;
+}
+
+.commits-label-large {
+    font-size: 0.65rem;
+    color: var(--text-gray);
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+.dashboard-separator {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+/* 2x2 Stats Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.25s ease;
+}
+
+.dashboard-card:hover {
+    border-color: rgba(140, 74, 216, 0.15);
+    background: rgba(140, 74, 216, 0.01);
+}
+
+.dashboard-card .card-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-gray);
+    letter-spacing: 1.5px;
+}
+
+.dashboard-card .card-value {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+/* Matrix Box (Contribution Activity) */
+.matrix-container {
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 14px;
+    padding: 25px;
+}
+
+.matrix-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.matrix-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #8c4ad8;
+    letter-spacing: 2px;
+    font-family: monospace;
+}
+
+.matrix-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #8c4ad8;
+    box-shadow: 0 0 8px #8c4ad8;
+    animation: dashboardPulse 2s infinite ease-in-out;
+}
+
+@keyframes dashboardPulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px #8c4ad8; }
+    100% { transform: scale(1); opacity: 0.5; }
+}
+
+.matrix-body-wrapper {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    width: 100%;
+}
+
+/* Calendar Scroll & Grid */
+.matrix-calendar-scroll {
+    flex: 1;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.matrix-calendar-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.matrix-calendar-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 10px;
+}
+
+.matrix-calendar-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+.matrix-calendar-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(140, 74, 216, 0.3);
+}
+
+.contribution-calendar-container {
+    min-width: 680px;
+}
+
+.contribution-months {
+    display: grid;
+    grid-template-columns: 35px repeat(53, 1fr);
+    gap: 2px;
+    margin-bottom: 8px;
+    font-size: 0.65rem;
+    color: var(--text-gray);
+    text-align: left;
+}
+
+.contribution-grid-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.contribution-weekdays {
+    display: grid;
+    grid-template-rows: repeat(7, 11px);
+    gap: 2px;
+    font-size: 0.65rem;
+    color: var(--text-gray);
+    width: 25px;
+    line-height: 11px;
+}
+
+.contribution-grid {
+    display: grid;
+    grid-template-columns: repeat(53, 11px);
+    grid-template-rows: repeat(7, 11px);
+    gap: 2px;
+}
+
+.contrib-cell {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.04);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.contrib-cell:hover {
+    transform: scale(1.3);
+    z-index: 10;
+}
+
+/* Purple Levels */
+.contrib-level-0 { background-color: rgba(255, 255, 255, 0.04); }
+.contrib-level-1 { background-color: #2e1654; }
+.contrib-level-2 { background-color: #4b2383; }
+.contrib-level-3 { background-color: #6830b4; }
+.contrib-level-4 { background-color: #8c4ad8; }
+
+/* Year Selector Control */
+.year-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80px;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    padding-left: 20px;
+    height: 100px;
+    justify-content: center;
+}
+
+.year-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 6px;
+    color: var(--text-gray);
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.year-btn:hover {
+    color: var(--text-light);
+    border-color: rgba(140, 74, 216, 0.35);
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.year-btn.active {
+    background: rgba(140, 74, 216, 0.12);
+    border-color: #8c4ad8;
+    color: var(--text-light);
+    box-shadow: 0 0 10px rgba(140, 74, 216, 0.1);
+}
+
+/* ==========================================
+   RESPONSIVE GITHUB STATS DESIGN
+   ========================================== */
+@media (max-width: 991px) {
+    .stats {
+        padding: 80px 5% 80px 5%;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .github-dashboard-card {
+        padding: 25px;
+    }
+
+    .matrix-body-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .year-selector {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-left: 0;
+        padding-top: 15px;
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+    }
+
+    .year-btn {
+        flex: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .header-right {
+        align-items: flex-start;
+    }
+
+    .commits-count-large {
+        font-size: 2.2rem;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   SKELETON SHIMMER LOADERS
+   ========================================== */
+.skeleton-loader-profile, .skeleton-loader-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-loader-profile::after, 
+.skeleton-loader-card::after,
+.skeleton-avatar::after,
+.skeleton-line::after,
+.skeleton-stat::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.04) 20%,
+        rgba(255, 255, 255, 0.08) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.skeleton-loader-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.skeleton-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-line {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin-bottom: 15px;
+    width: 80%;
+    height: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-line.title {
+    width: 60%;
+    height: 24px;
+}
+
+.skeleton-line.subtitle {
+    width: 40%;
+    height: 14px;
+    margin-bottom: 30px;
+}
+
+.skeleton-stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.skeleton-stat {
+    background: rgba(255, 255, 255, 0.05);
+    height: 45px;
+    width: 28%;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-loader-card {
+    height: 190px;
+    background: rgba(13, 25, 47, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+}
+
+/* ==========================================
+   RESPONSIVE GITHUB PROJECTS DESIGN
+   ========================================== */
+@media (max-width: 992px) {
+    .projects {
+        padding: 80px 6% 60px 6%;
+    }
+
+    .github-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .github-profile-card {
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .github-repos-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .projects-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .github-notice-box {
+        grid-column: span 1;
+    }
+    
+    .github-error-box {
+        grid-column: span 1;
+    }
+}

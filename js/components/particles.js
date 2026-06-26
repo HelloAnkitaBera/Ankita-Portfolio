@@ -1,81 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     /* ==========================================
-       TYPEWRITER ANIMATION
-       ========================================== */
-    const textElement = document.querySelector(".role-badge span");
-    if (textElement) {
-        const words = ["AI & ML Developer", "Python Developer", "Full Stack Developer"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        function type() {
-            const currentWord = words[wordIndex];
-            if (isDeleting) {
-                textElement.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                textElement.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let typeSpeed = 100;
-            if (isDeleting) {
-                typeSpeed /= 2;
-            }
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 1500; // Pause at the end of the word
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                typeSpeed = 500; // Pause before typing the next word
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-        type();
-    }
-
-    /* ==========================================
-       DYNAMIC NAVBAR SCROLL STYLING
-       ========================================== */
-    const header = document.querySelector("header");
-    if (header) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 50) {
-                header.classList.add("scrolled");
-            } else {
-                header.classList.remove("scrolled");
-            }
-        });
-    }
-
-    /* ==========================================
-       3D PARALLAX IMAGE TILT EFFECT
-       ========================================== */
-    const imgBox = document.querySelector(".img-box");
-    const homeImg = document.querySelector(".home-img");
-    if (imgBox && homeImg) {
-        homeImg.addEventListener("mousemove", (e) => {
-            const rect = homeImg.getBoundingClientRect();
-            const x = e.clientX - rect.left - (rect.width / 2);
-            const y = e.clientY - rect.top - (rect.height / 2);
-            
-            // Limit the tilt rotation
-            const rotateX = -(y / rect.height) * 15;
-            const rotateY = (x / rect.width) * 15;
-            
-            imgBox.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-        });
-        
-        homeImg.addEventListener("mouseleave", () => {
-            imgBox.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
-        });
-    }
-
-    /* ==========================================
        HTML5 CANVAS PARTICLE SYSTEM
        ========================================== */
     const canvas = document.getElementById("bg-canvas");
@@ -161,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     if (dist < 110) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(14, 165, 233, ${0.15 * (1 - dist / 110)})`; // Fades out as distance grows
+                        ctx.strokeStyle = `rgba(14, 165, 233, ${0.15 * (1 - driftVal(dist) / 110)})`; // Fades out as distance grows
                         ctx.lineWidth = 0.5;
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
@@ -189,18 +113,12 @@ document.addEventListener("DOMContentLoaded", () => {
             requestAnimationFrame(animate);
         }
 
+        // Quick helper for distance calculations
+        function driftVal(val) {
+            return val;
+        }
+
         initParticles();
         animate();
     }
-
-    /* ==========================================
-       NAV BAR CLICK ACTIVE TOGGLE
-       ========================================== */
-    const navLinks = document.querySelectorAll(".nav-links a");
-    navLinks.forEach(link => {
-        link.addEventListener("click", function() {
-            navLinks.forEach(l => l.classList.remove("active"));
-            this.classList.add("active");
-        });
-    });
 });
