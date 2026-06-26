@@ -2,9 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ==========================================
        TYPEWRITER ANIMATION
        ========================================== */
-    const textElement = document.querySelector(".home-content h3 span");
+    const textElement = document.querySelector(".role-badge span");
     if (textElement) {
-        const words = ["AI & ML Student", "Python Developer", "Full Stack Developer"];
+        const words = ["AI & ML Developer", "Python Developer", "Full Stack Developer"];
         let wordIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
