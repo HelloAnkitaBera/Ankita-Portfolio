@@ -11,7 +11,7 @@ header {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 2px solid;
-    border-image: linear-gradient(135deg, var(--accent-cyan), #0ea5e9, #ff007f) 1;
+    border-image: linear-gradient(135deg, var(--accent-cyan), #0ea5e9, var(--accent-pink)) 1;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), 0 0 15px var(--nav-shadow);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -22,21 +22,21 @@ header.scrolled {
 }
 
 header.scrolled .navbar {
-    padding: 12px 10% 12px 4%;
+    padding: 13px 4% 13px 2%;
 }
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    padding: 20px 10% 20px 4%;
+    padding: 18px 4% 18px 2%;
     transition: padding 0.4s ease;
 }
 
 /* Logo Styling */
 .logo {
     font-family: var(--font-heading);
-    font-size: 2.2rem;
+    font-size: 1.9rem;
     font-weight: 800;
     letter-spacing: 0.5px;
     background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
@@ -51,30 +51,35 @@ header.scrolled .navbar {
     filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.4));
 }
 
-/* Nav links styling */
+/* Nav Menu and links styling */
 .nav-links {
     display: flex;
-    gap: 35px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 26px;
     list-style: none;
+    margin-left: auto;
 }
 
 .nav-links a {
     font-family: var(--font-heading);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     color: var(--nav-text);
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     position: relative;
     padding: 6px 0;
     transition: all 0.3s ease;
 }
 
 .nav-icon {
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     fill: currentColor;
 }
 
@@ -101,24 +106,26 @@ header.scrolled .navbar {
     color: var(--nav-hover);
 }
 
-.nav-right {
-    display: flex;
-    align-items: center;
+/* Nav actions layout (GitHub Icon) */
+.nav-actions {
+    display: none;
 }
 
-/* Nav button styling */
+/* Resume button styling */
 .nav-btn {
     font-family: var(--font-heading);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     background: transparent;
     color: var(--accent-cyan);
     border: 2px solid var(--accent-cyan);
-    padding: 8px 20px;
+    padding: 6px 16px;
     border-radius: 30px;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     transition: all 0.3s ease;
     cursor: pointer;
     text-decoration: none;
@@ -126,8 +133,8 @@ header.scrolled .navbar {
 }
 
 .btn-icon {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     fill: currentColor;
 }
 
@@ -139,23 +146,13 @@ header.scrolled .navbar {
                 linear-gradient(135deg, var(--accent-cyan), var(--accent-pink)) padding-box;
 }
 
-/* ==========================================
-   NAVBAR EXTENSIONS (GITHUB CIRCLE BUTTON)
-   ========================================== */
-.nav-divider {
-    width: 1px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    margin: 0 15px;
-    list-style: none;
-}
-
+/* GitHub Circle Button */
 .nav-github-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: 1.5px solid rgba(0, 229, 255, 0.3);
     background: rgba(3, 10, 16, 0.5);
@@ -172,28 +169,131 @@ header.scrolled .navbar {
 }
 
 .nav-icon-github {
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
     fill: currentColor;
+}
+
+/* Mobile Toggle Hamburger Button */
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+    z-index: 105;
+}
+
+.hamburger {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--nav-text);
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 2px;
+    background: var(--nav-text);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hamburger::before {
+    top: -6px;
+}
+
+.hamburger::after {
+    bottom: -6px;
+}
+
+/* Animated State to 'X' */
+.nav-toggle.open .hamburger {
+    background: transparent;
+}
+
+.nav-toggle.open .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.nav-toggle.open .hamburger::after {
+    transform: rotate(-45deg);
+    bottom: 0;
 }
 
 /* ==========================================
    RESPONSIVE NAVBAR DESIGN
    ========================================== */
 @media (max-width: 991px) {
+    header.scrolled .navbar {
+        padding: 15px 5%;
+    }
+
     .navbar {
-        padding: 20px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        order: 1;
+    }
+
+    .nav-toggle {
+        display: block;
+        order: 2;
+        margin-left: auto;
+    }
+
+    /* Mobile Side Drawer Menu Overlay */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: rgba(3, 10, 16, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-left: 1px solid rgba(0, 229, 255, 0.15);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 100px 30px 40px 30px;
+        gap: 20px;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 100;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .nav-links.open {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    .nav-links a::after {
+        bottom: -2px;
     }
 }
 
 @media (max-width: 576px) {
-    .navbar {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px 5%;
-    }
-    
-    .nav-links {
-        gap: 20px;
+    .nav-github-btn {
+        width: 34px;
+        height: 34px;
     }
 }

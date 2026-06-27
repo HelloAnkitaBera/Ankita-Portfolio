@@ -125,15 +125,17 @@
     height: 100%;
     border-radius: 20px;
     overflow: hidden;
-    border: 1.5px solid rgba(0, 229, 255, 0.2);
+    border: 3px solid transparent;
+    background: linear-gradient(rgba(3, 10, 16, 0.75), rgba(3, 10, 16, 0.75)) padding-box,
+                linear-gradient(135deg, var(--accent-cyan), #0ea5e9, var(--accent-pink)) border-box;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 229, 255, 0.05);
-    background: rgba(3, 10, 16, 0.6);
 }
 
 .about-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 15%;
     transition: transform 0.5s ease;
 }
 
@@ -308,8 +310,9 @@
 }
 
 .about-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 3px solid transparent;
+    background: linear-gradient(rgba(3, 10, 16, 0.75), rgba(3, 10, 16, 0.75)) padding-box,
+                linear-gradient(135deg, var(--accent-cyan), #0ea5e9, var(--accent-pink)) border-box;
     border-radius: 16px;
     padding: 25px;
     text-align: left;
@@ -318,27 +321,10 @@
     overflow: hidden;
 }
 
-.about-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.5s ease;
-}
-
-.about-card:hover::before {
-    transform: translateX(100%);
-}
-
 .about-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(0, 229, 255, 0.15);
-    background: rgba(0, 229, 255, 0.01);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 229, 255, 0.05);
+    box-shadow: 0 15px 35px rgba(0, 229, 255, 0.15), 
+                0 0 20px rgba(255, 0, 127, 0.08);
 }
 
 .about-card .card-header {

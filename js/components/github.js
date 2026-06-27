@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const githubFollowers = document.getElementById("github-followers");
     const githubCommits = document.getElementById("github-commits");
     const githubJoined = document.getElementById("github-joined");
+    const githubForks = document.getElementById("github-forks");
+    const githubStars = document.getElementById("github-stars");
     const githubHeaderCommits = document.getElementById("github-header-commits");
     const contributionGrid = document.getElementById("contribution-grid");
     const monthsContainer = document.getElementById("contribution-months");
@@ -86,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Try to load cached data first to prevent flicker or API limit issues
             const cachedUser = localStorage.getItem("github_user_cache");
             const cachedContributions = localStorage.getItem("github_contri_cache");
+            const cachedRepos = localStorage.getItem("github_repos_cache");
 
             if (cachedUser) {
                 try {
@@ -97,6 +100,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 try {
                     fetchedContributions = JSON.parse(cachedContributions);
                     renderContributions(selectedYear);
+                } catch (e) {}
+            }
+            if (cachedRepos) {
+                try {
+                    const repos = JSON.parse(cachedRepos);
+                    updateRepoDetails(repos);
+                    renderLanguageBreakdown(repos);
                 } catch (e) {}
             }
 
@@ -111,10 +121,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 // Fetch Repositories to extract update dates as backup calendar highlights
-                const reposResponse = await fetch(`https://api.github.com/users/${DEFAULT_USERNAME}/repos?sort=updated&per_page=30`);
+                const reposResponse = await fetch(`https://api.github.com/users/${DEFAULT_USERNAME}/repos?sort=updated&per_page=100`);
                 let repos = [];
                 if (reposResponse.ok) {
                     repos = await reposResponse.json();
+                    localStorage.setItem("github_repos_cache", JSON.stringify(repos));
+                    updateRepoDetails(repos);
+                    renderLanguageBreakdown(repos);
                 }
 
                 // Populate activeDates set and record live contributions
@@ -194,6 +207,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (githubFollowers) githubFollowers.textContent = "1";
                     if (githubJoined) githubJoined.textContent = "JUN 2025";
                 }
+                if (!cachedRepos) {
+                    if (githubForks) githubForks.textContent = "0";
+                    if (githubStars) githubStars.textContent = "0";
+                    renderLanguageBreakdown([]);
+                }
                 if (!cachedContributions) {
                     renderContributions(selectedYear);
                 }
@@ -212,6 +230,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 const yearVal = joinedDate.getFullYear();
                 githubJoined.textContent = `${monthName} ${yearVal}`;
             }
+        }
+
+        function updateRepoDetails(repos) {
+            let totalStars = 0;
+            let totalForks = 0;
+            if (Array.isArray(repos)) {
+                repos.forEach(repo => {
+                    totalStars += repo.stargazers_count || 0;
+                    totalForks += repo.forks_count || 0;
+                });
+            }
+            if (githubStars) githubStars.textContent = totalStars;
+            if (githubForks) githubForks.textContent = totalForks;
         }
 
         let yearBtnsSetup = false;
@@ -408,6 +439,128 @@ document.addEventListener("DOMContentLoaded", () => {
             if (val < 96) return 2; // 6% level 2
             if (val < 99) return 3; // 3% level 3
             return 4;              // 1% level 4
+        }
+
+        function renderLanguageBreakdown(repos) {
+            const legendContainer = document.getElementById("languages-legend-container");
+            const progressContainer = document.getElementById("languages-progress-container");
+            const langCountText = document.getElementById("lang-count-text");
+            const doughnutChart = document.querySelector(".doughnut-chart");
+            
+            if (!legendContainer || !progressContainer || !langCountText || !doughnutChart) return;
+
+            // Handle fallback if no repositories are loaded or fetched (CORS/API limits)
+            let finalRepos = repos;
+            if (!repos || repos.length === 0) {
+                finalRepos = [
+                    { language: "Python" }, { language: "Python" }, { language: "Python" },
+                    { language: "Python" }, { language: "JavaScript" }, { language: "JavaScript" },
+                    { language: "JavaScript" }, { language: "TypeScript" }, { language: "TypeScript" },
+                    { language: "CSS" }
+                ];
+            }
+
+            const languageCounts = {};
+            let totalValidRepos = 0;
+
+            finalRepos.forEach(repo => {
+                if (repo.language) {
+                    languageCounts[repo.language] = (languageCounts[repo.language] || 0) + 1;
+                    totalValidRepos++;
+                }
+            });
+
+            const sortedLanguages = Object.entries(languageCounts)
+                .map(([name, count]) => ({
+                    name,
+                    count,
+                    percentage: Math.round((count / totalValidRepos) * 100)
+                }))
+                .sort((a, b) => b.count - a.count);
+
+            // Display count of languages
+            langCountText.textContent = sortedLanguages.length;
+
+            // Clear old slices from the SVG (keep the static bg circle)
+            const dynamicSlices = doughnutChart.querySelectorAll(".doughnut-slice");
+            dynamicSlices.forEach(slice => slice.remove());
+
+            // Clear layout containers
+            legendContainer.innerHTML = "";
+            progressContainer.innerHTML = "";
+
+            // Dynamic color palette
+            const colorPalette = {
+                "JavaScript": "#facc15",
+                "TypeScript": "#3b82f6",
+                "Python": "#10b981",
+                "HTML": "#f97316",
+                "CSS": "#38bdf8",
+                "C++": "#ec4899",
+                "C#": "#8b5cf6",
+                "Java": "#ef4444",
+                "Go": "#06b6d4",
+                "Rust": "#e11d48",
+                "Shell": "#14b8a6"
+            };
+            const defaultColors = ["#a855f7", "#ec4899", "#14b8a6", "#f43f5e", "#0ea5e9", "#eab308"];
+
+            const radius = 40;
+            const circumference = 2 * Math.PI * radius;
+            let currentOffset = 0;
+
+            sortedLanguages.forEach((lang, index) => {
+                const color = colorPalette[lang.name] || defaultColors[index % defaultColors.length];
+
+                // 1. Draw SVG slice
+                const strokeLength = (lang.percentage / 100) * circumference;
+                const strokeGap = circumference - strokeLength;
+
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("class", "doughnut-slice");
+                circle.setAttribute("cx", "50");
+                circle.setAttribute("cy", "50");
+                circle.setAttribute("r", radius.toString());
+                circle.setAttribute("fill", "transparent");
+                circle.setAttribute("stroke", color);
+                circle.setAttribute("stroke-width", "12");
+                circle.setAttribute("stroke-dasharray", `${strokeLength} ${strokeGap}`);
+                circle.setAttribute("stroke-dashoffset", (-currentOffset).toString());
+                circle.style.transform = "rotate(-90deg)";
+                circle.style.transformOrigin = "50px 50px";
+
+                doughnutChart.appendChild(circle);
+                currentOffset += strokeLength;
+
+                // 2. Add legend item
+                const legendItem = document.createElement("div");
+                legendItem.className = "legend-item";
+                legendItem.innerHTML = `
+                    <div class="legend-left">
+                        <span class="legend-dot" style="background-color: ${color};"></span>
+                        <span class="legend-name">${lang.name}</span>
+                    </div>
+                    <span class="legend-pct">${lang.percentage}%</span>
+                `;
+                legendContainer.appendChild(legendItem);
+
+                // 3. Add bottom progress item
+                const progressItem = document.createElement("div");
+                progressItem.className = "lang-progress-item";
+                progressItem.innerHTML = `
+                    <div class="lang-progress-info">
+                        <div class="lang-progress-left">
+                            <span class="lang-progress-dot" style="background-color: ${color};"></span>
+                            <span class="lang-progress-name">${lang.name}</span>
+                        </div>
+                        <span class="lang-progress-pct">${lang.percentage}%</span>
+                    </div>
+                    <div class="lang-progress-bar-bg">
+                        <div class="lang-progress-bar-fill" style="width: ${lang.percentage}%; background-color: ${color}; box-shadow: 0 0 8px ${color}80;"></div>
+                    </div>
+                `;
+                progressContainer.appendChild(progressItem);
+            });
         }
 
         // Initial Load
