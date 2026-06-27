@@ -158,4 +158,54 @@ document.addEventListener("DOMContentLoaded", () => {
         // Initial run
         calculateScroll();
     }
+
+    /* ==========================================
+       CUSTOM INTERACTIVE PINK TOUCH CURSOR
+       ========================================== */
+    const cursorTouch = document.querySelector(".custom-cursor-touch");
+    
+    if (cursorTouch && window.matchMedia("(pointer: fine)").matches) {
+        let mouseX = 0, mouseY = 0; // Real mouse coordinates
+        let touchX = 0, touchY = 0; // Trailing touch bubble coordinates
+        
+        // Track mouse movement
+        window.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        // Animation loop for fluid LERP trail lagging
+        const animateCursor = () => {
+            // Lerp algorithm: trailing coordinate = current + (target - current) * factor
+            // Factor 0.24 makes it feel responsive yet organic like a fluid touch bubble
+            touchX += (mouseX - touchX) * 0.24;
+            touchY += (mouseY - touchY) * 0.24;
+            
+            cursorTouch.style.left = `${touchX}px`;
+            cursorTouch.style.top = `${touchY}px`;
+            
+            requestAnimationFrame(animateCursor);
+        };
+        requestAnimationFrame(animateCursor);
+        
+        // Hover state on links & buttons
+        const hoverTargets = document.querySelectorAll("a, button, [role='button'], .logo");
+        hoverTargets.forEach(target => {
+            target.addEventListener("mouseenter", () => {
+                document.body.classList.add("cursor-hover");
+            });
+            target.addEventListener("mouseleave", () => {
+                document.body.classList.remove("cursor-hover");
+            });
+        });
+        
+        // Click state listeners
+        window.addEventListener("mousedown", () => {
+            document.body.classList.add("cursor-clicking");
+        });
+        
+        window.addEventListener("mouseup", () => {
+            document.body.classList.remove("cursor-clicking");
+        });
+    }
 });

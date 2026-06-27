@@ -190,3 +190,56 @@ body::after {
         height: 44px;
     }
 }
+
+/* ==========================================
+   CUSTOM PINK ROUND TOUCH CURSOR
+   ========================================== */
+@media (pointer: fine) {
+    /* Hide default cursor on desktop */
+    body, a, button, input, textarea, select, .logo, .nav-links a {
+        cursor: none !important;
+    }
+
+    .custom-cursor-touch {
+        width: 20px;
+        height: 20px;
+        background: rgba(220, 23, 118, 0.75);
+        border: 1.5px solid rgba(93, 31, 62, 0.85);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%) scale(1);
+        pointer-events: none;
+        z-index: 10000;
+        box-shadow: 0 0 10px rgba(255, 0, 127, 0.5),
+                    inset 0 0 4px rgba(255, 0, 127, 0.3);
+        will-change: left, top;
+        transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), 
+                    background-color 0.2s ease, 
+                    box-shadow 0.2s ease,
+                    border-color 0.2s ease;
+    }
+
+    /* Hover state over links/buttons */
+    body.cursor-hover .custom-cursor-touch {
+        transform: translate(-50%, -50%) scale(1.4);
+        background: rgba(140, 0, 70, 0.3);
+        border-color: rgba(255, 0, 127, 1);
+        box-shadow: 0 0 15px rgba(255, 0, 127, 0.7);
+    }
+
+    /* Click state pressure feedback */
+    body.cursor-clicking .custom-cursor-touch {
+        transform: translate(-50%, -50%) scale(0.85);
+        background: rgba(180, 0, 90, 0.9);
+        box-shadow: 0 0 8px rgba(255, 0, 127, 0.8);
+    }
+}
+
+/* Hide on touch screens */
+@media (pointer: coarse) {
+    .custom-cursor-touch {
+        display: none !important;
+    }
+}
