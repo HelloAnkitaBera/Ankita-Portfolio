@@ -31,7 +31,7 @@
 }
 
 .stats-header h2 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-family: var(--font-heading);
     font-weight: 800;
     color: var(--text-light);
@@ -978,7 +978,7 @@
 .legend-name {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-light);
+    color: var(--text-secondary);
 }
 
 .legend-pct {
@@ -1028,7 +1028,7 @@
 .lang-progress-name {
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-light);
+    color: var(--text-secondary);
 }
 
 .lang-progress-pct {
