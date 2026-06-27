@@ -236,6 +236,34 @@
         </div>
     </section>
 
+    <!-- ==========================================
+         SKILLS INFINITE SCROLL BAR (MARQUEE)
+         ========================================== -->
+    <section id="skills" class="skills-ticker-section">
+        <div class="ticker-wrapper">
+            <div class="ticker-track">
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Python</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Machine Learning</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Artificial Intelligence</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Deep Learning</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Full-Stack Web Dev</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> JavaScript</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> HTML5 / CSS3</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Git & GitHub</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Data Science</div>
+            </div>
+            <div class="ticker-track" aria-hidden="true">
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Python</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Machine Learning</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Artificial Intelligence</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Deep Learning</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Full-Stack Web Dev</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> JavaScript</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> HTML5 / CSS3</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Git & GitHub</div>
+                <div class="ticker-item"><span class="ticker-bullet">✦</span> Data Science</div>
+            </div>
+        </div>
     </section>
 
 
@@ -318,7 +346,6 @@
                 <!-- Matrix Box -->
                 <div class="matrix-container">
                     <div class="matrix-header">
-                        <span class="matrix-title">MATRIX_OUTPUT</span>
                         <div class="live-status-indicator">
                             <span class="live-status-text">LIVE STATUS</span>
                             <span class="matrix-dot"></span>
@@ -348,10 +375,16 @@
                             </div>
                         </div>
                         
-                        <!-- Years selector as radio-style tabs -->
+                        <!-- Years selector as a combobox (select dropdown) -->
                         <div class="year-selector">
-                            <button class="year-btn active" data-year="2026">2026</button>
-                            <button class="year-btn" data-year="2025">2025</button>
+                            <span class="year-label"><span class="diamond-prefix">✦</span> YEAR</span>
+                            <div class="year-select-wrapper">
+                                <select id="year-select" class="year-select">
+                                    <option value="2026" selected>2026</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                                <span class="select-arrow"></span>
+                            </div>
                         </div>
                     </div>
                 </div>

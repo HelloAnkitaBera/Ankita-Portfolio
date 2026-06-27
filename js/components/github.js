@@ -248,15 +248,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let yearBtnsSetup = false;
         function setupYearButtons() {
             if (yearBtnsSetup) return;
-            const yearBtns = document.querySelectorAll(".year-btn");
-            yearBtns.forEach(btn => {
-                btn.addEventListener("click", function() {
-                    yearBtns.forEach(b => b.classList.remove("active"));
-                    this.classList.add("active");
-                    selectedYear = parseInt(this.getAttribute("data-year"));
+            const yearSelect = document.getElementById("year-select");
+            if (yearSelect) {
+                yearSelect.addEventListener("change", function() {
+                    selectedYear = parseInt(this.value);
                     renderContributions(selectedYear);
                 });
-            });
+            }
             yearBtnsSetup = true;
         }
 
