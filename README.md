@@ -1,102 +1,129 @@
-# HelloAnkita.dev ✦ Cyberpunk Portfolio
+# 🌌 HelloAnkita.dev
+> **A futuristic, cyberpunk-themed portfolio built with vanilla CSS, glassmorphism, and live GitHub API integration.**
 
-A highly premium, futuristic, and responsive personal developer portfolio website designed for **Ankita Bera**—an AI & ML Student and Creative Coder. Built using semantic HTML5, modern modular CSS3, and dynamic vanilla JavaScript.
-
----
-
-## 🎨 Visual Design & Theme
-
-- **Cyberpunk Aesthetics:** Styled with a sleek, dark glassmorphism (radial backgrounds with dark-blue depths) and vibrant neon accents (Cyan, Purple, Pink).
-- **Drifting Bokeh Lights:** Subtle, performance-optimized background animations that drift lazily to create a premium, deep-space environment.
-- **Futuristic Typography:** Curated typography pairing using Google Fonts:
-  - **Heading Font:** `Space Grotesk` (clean, geometric, futuristic)
-  - **Primary Body Font:** `Plus Jakarta Sans` (highly readable, modern sans-serif)
+<p align="left">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/GitHub--API-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub API" />
+  <img src="https://img.shields.io/badge/Theme-Cyberpunk-ff007f?style=for-the-badge" alt="Cyberpunk Theme" />
+  <img src="https://img.shields.io/badge/Layout-Glassmorphism-00e5ff?style=for-the-badge" alt="Glassmorphism" />
+</p>
 
 ---
 
-## 🚀 Key Features
+## ✨ Design Philosophy & Aesthetics
 
-### 1. Dynamic Navigation HUD
-- **Auto-Styling Header:** Shrinks and adds blur/opacity backdrops dynamically as the user scrolls.
-- **Active Section Highlighting:** Employs an `Intersection Observer` to automatically highlight the current navbar section in real-time.
-- **Floating Scroll Tracker:** A custom back-to-top circular HUD button displaying the user's scroll progress in a styled gradient ring.
+The application represents a high-fidelity digital hub showcasing creative code capabilities. 
 
-### 2. Micro-Animations & Interactivity
-- **Typewriter Hero Badge:** Cycles smoothly through developer roles:
-  - *AI & ML Developer*
-  - *Python Developer*
-  - *Full Stack Developer*
-- **Floating Particle System:** Responsive canvas element (`js/components/particles.js`) that renders drifting, interactive node networks behind the UI.
-- **Cyberpunk Cursor:** Custom cursor highlighting interactive hover targets.
-- **Orbits Animation:** Profile frame decorated with rotating planetary neon rings.
-
-### 3. Modular CS Skills Toolkit
-- **Glassmorphism Tech Cards:** Organized categorizations for:
-  - **Frontend:** HTML5, CSS3, JavaScript, React, Responsive Design
-  - **Backend:** Python, Flask, REST API, JSON
-  - **Databases:** MySQL, SQLite
-  - **AI & Machine Learning:** Machine Learning concepts, NumPy, Pandas, Scikit-learn
-  - **Tools:** Git, GitHub, VS Code, Postman, Figma
-  - **Core CS:** DSA, OOP, DBMS, OS, Computer Networks, Software Engineering
-- **Infinite Marquee Ticker:** A smooth, CSS-only horizontal ticker scrolling key technical fields at the bottom of the section.
-
-### 4. Real-Time GitHub Dashboard
-- **Live Stats Fetching:** Integrates directly with the GitHub API to dynamically pull:
-  - Repositories, Followers, Forks, and Star counts.
-  - Total Commit count (with smart local caching to prevent rate limiting).
-- **Interactive Heatmap Calendar:** Renders a customized, year-selectable (2025/2026) contribution grid similar to GitHub's profile heatmap.
-- **Doughnut Language Breakdown:** Dynamic SVG doughnut chart illustrating programming language distribution across public repositories.
+*   **Vibrant Cyberpunk Accents:** Structured around deep slate layers (`#030a10`) highlighted by high-contrast neon accents: Cyan (`#00e5ff`), Purple (`#9d4edd`), and Pink (`#ff007f`).
+*   **Atmospheric Depth:** Background drifting bokeh lights move dynamically, creating a fluid, floating, premium environment.
+*   **Modern Typography:** Styled with Google Fonts pairing of `Space Grotesk` (for futuristic headings) and `Plus Jakarta Sans` (for clean, responsive body text).
 
 ---
 
-## 📁 Repository Structure
+## ⚡ Interactive Features
+
+```mermaid
+graph TD
+    A[index.html Main Page] --> B(Visual Canvas Layer)
+    A --> C(Interactive UI Components)
+    A --> D(GitHub API Connector)
+
+    subgraph Visual Canvas Layer
+        B1[particles.js Canvas Engine]
+        B2[CSS Bokeh Glows]
+    end
+
+    subgraph Interactive UI Components
+        C1[typewriter.js Badge Selector]
+        C2[navbar.js Active Observer]
+        C3[Back-to-Top HUD Circular Progress]
+    end
+
+    subgraph GitHub API Connector
+        D1[User Stats Fetcher]
+        D2[Contribution Calendar Render]
+        D3[Language Breakdown SVG Chart]
+        D4[Local Storage Caching Engine]
+    end
+```
+
+### 🛰️ Core Modules & Mechanics
+
+| Module | Core Logic | Style Elements | Experience Description |
+| :--- | :--- | :--- | :--- |
+| **HUD Navigation** | `js/components/navbar.js` | `CSS/components/navbar.css` | A scroll-shrinking, blurring navigation header with active section track via `IntersectionObserver`. |
+| **Interactive Particles** | `js/components/particles.js` | HTML5 Canvas Context | Connective drifting particle nodes that respond to browser window viewport scaling. |
+| **Typewriter Badge** | `js/components/typewriter.js` | `CSS/components/home.css` | Cycles between: *AI & ML Developer*, *Python Developer*, and *Full Stack Developer*. |
+| **GitHub Dashboard** | `js/components/github.js` | `CSS/components/stats.css` | Fetches live user statistics, generates contribution calendars, and draws an interactive SVG language chart. |
+
+> [!TIP]
+> **Performance Optimized:** The drifting bokeh animations and canvas particles use lightweight keyframes and standard animation loop ticks to maintain a target 60FPS on both mobile and desktop viewports.
+
+---
+
+## 📁 Repository Blueprint
+
+Here is a visual map of the repository's modules:
 
 ```text
 HelloAnkita/
 ├── CSS/
 │   ├── components/
-│   │   ├── about.css       # Layout & orbits animations for the About section
-│   │   ├── global.css      # Base reset, scrollbars, and drifting background glows
-│   │   ├── home.css        # Hero structure, typewriter styling, and profile glows
-│   │   ├── navbar.css      # Navigation bar, mobile toggles, and HUD tracking
-│   │   ├── stats.css       # GitHub dashboard layouts, grids, calendar & charts
-│   │   └── variables.css   # HSL tailored color palette & typography tokens
-│   └── style.css           # Main CSS entry importing modular components
+│   │   ├── about.css       # About section profile & planetary orbit mechanics
+│   │   ├── global.css      # Drifting lights, base resets, and scrollbar stylings
+│   │   ├── home.css        # Hero elements & typewriter layout positioning
+│   │   ├── navbar.css      # Header layouts, blurring, & circular HUD tracker
+│   │   ├── stats.css       # Git metrics dashboard, grids, and calendar nodes
+│   │   └── variables.css   # Tailored HSL color variables & font families
+│   └── style.css           # Global stylesheet rollup importing modular CSS
 ├── js/
 │   └── components/
-│       ├── github.js       # Live GitHub API fetching, heatmap rendering, & SVG chart
-│       ├── navbar.js       # Navbar states, smooth scroll offsets, & active highlights
-│       ├── parallax.js     # Smooth layout movement based on mouse trajectory
-│       ├── particles.js    # Canvas particle background physics & node connections
-│       └── typewriter.js   # Dynamic string typewriter animation for hero tags
+│       ├── github.js       # Live API stats fetch, rendering engine, & local caching
+│       ├── navbar.js       # Active highlight, hamburger toggles, and scroll track
+│       ├── parallax.js     # Responsive cursor/mouse-axis movement tracker
+│       ├── particles.js    # Background interactive canvas particle network
+│       └── typewriter.js   # Hero title typewriter loop sequencer
 ├── assets/
-│   ├── profile.jpg         # Profile picture asset
-│   └── resume.pdf          # Professional CV for download
-├── index.html              # Main HTML entry file
-└── README.md               # Repository documentation
+│   ├── profile.jpg         # Profile image resource
+│   └── resume.pdf          # Professional developer resume
+├── index.html              # Main site structural markup
+└── README.md               # User manual & documentation
 ```
 
 ---
 
-## 🛠️ Getting Started & Hosting
+## ⚙️ Setup & Customization
 
-### Run Locally
-Since this is a client-side static web application, no complex build toolchains are required. You can load it directly in any modern browser:
+### Local Development
+To launch the application locally, you can serve it with any lightweight HTTP utility:
 
-1. **Option A (Direct File):** Simply open `index.html` in your web browser.
-2. **Option B (Recommended for Live Features):** Serve the folder using a local web server to bypass CORS issues on some local files.
-   - **VS Code:** Install the **Live Server** extension and click **Go Live**.
-   - **Python:** Run the following command in your terminal inside the project root:
-     ```bash
-     python -m http.server 8000
-     ```
-     Then navigate to `http://localhost:8000`.
+> [!IMPORTANT]
+> A local server is recommended to ensure the live GitHub API fetches and SVG charts render correctly without violating local origin file constraints in the browser.
 
-### Customizing for Your Profile
-To customize the portfolio for yourself:
-1. Open [index.html](file:///g:/My%20Drive/AB/HelloAnkita/index.html) and update the text content (Bio, Location, Resume links).
-2. Open [js/components/github.js](file:///g:/My%20Drive/AB/HelloAnkita/js/components/github.js) and change the `DEFAULT_USERNAME` to your GitHub username:
-   ```javascript
-   const DEFAULT_USERNAME = "YourGitHubUsername";
-   ```
-3. Replace `assets/profile.jpg` and `assets/resume.pdf` with your own assets.
+```bash
+# Using Python
+python -m http.server 8000
+
+# Using Node.js (npx)
+npx http-server -p 8000
+```
+Then visit **`http://localhost:8000`** in your browser.
+
+---
+
+### Customizing for Your Own Profile
+
+1.  **Configure GitHub Feed:** Open [js/components/github.js](file:///g:/My%20Drive/AB/HelloAnkita/js/components/github.js) and modify the fallback username to point to your profile:
+    ```javascript
+    const DEFAULT_USERNAME = "YourGitHubUsername";
+    ```
+2.  **Update Content:** Edit bios, links, and profile details inside [index.html](file:///g:/My%20Drive/AB/HelloAnkita/index.html).
+3.  **Swap Assets:** Replace `assets/profile.jpg` and `assets/resume.pdf` with your own assets.
+
+---
+
+<p align="center">
+  <sub>Designed with ❤️ by Ankita Bera</sub>
+</p>
