@@ -105,14 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             }
                         });
 
-                        // Trigger skill fill animations when skills section is visible
+                        // Trigger skills card staggered fade-in animations when skills section is visible
                         if (id === "skills") {
-                            const fills = entry.target.querySelectorAll(".skill-fill");
-                            fills.forEach(fill => {
-                                const targetWidth = fill.getAttribute("data-width");
-                                if (targetWidth) {
-                                    fill.style.width = targetWidth;
-                                }
+                            const cards = entry.target.querySelectorAll(".skills-card");
+                            cards.forEach(card => {
+                                card.classList.add("visible");
                             });
                         }
                     }
