@@ -1,7 +1,3 @@
-/* ==========================================================================
-   Ankita Bera Portfolio Main Entry Stylesheet
-   This entry file modularly imports components from the components/ folder.
-   ========================================================================== */
 
 @import "components/variables.css";
 @import "components/global.css";
